@@ -2,7 +2,7 @@
 
 # Dataset source and thanks
 
-Predict the year 
+Predict the year
 Start Date: 1996-01-01 End Date: 2019-12-31
 
 
@@ -38,4 +38,3 @@ note that there are very similar headlines in the data
 I did not make any effort to prevent from going one sentence like this to the train and second one to the test.
 
 I used a first category in the classification task. E.g there is "world" instead of "world.us" as on original dataset.
-
