@@ -12,7 +12,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 EVAL_OFTEN = True
 EVAL_EVERY = 3000
-BATCH_SIZE = 1
+BATCH_SIZE = 25
 model_type = 'base' # base or large
 
 
