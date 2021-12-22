@@ -1,0 +1,9 @@
+#MODEL = '../MODELS/without_date/checkpoint-395000'
+MODEL = 'roberta-base'
+BATCH_SIZE = 50
+EARLY_STOPPING = 3
+WARMUP_STEPS = 10_000
+LR=1e-6
+NUM_EPOCHS = 20
+STEPS_EVAL = 5_000
+TEST=False
