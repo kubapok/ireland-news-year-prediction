@@ -10,16 +10,22 @@ with open('eval_dataset_full.pickle','rb') as f_p:
 with open('test_dataset_A.pickle','rb') as f_p:
     test_dataset = pickle.load(f_p)
 
-device = 'cuda'
+device = 'cpu'
 model = AutoModelForSequenceClassification.from_pretrained('./roberta_year_prediction/epoch_best')
 model.eval()
 model.to(device)
+
+lrelu = torch.nn.LeakyReLU(0.0)
+def soft_clip(t):
+    t = lrelu(t)
+    t = -lrelu(-t + 1 ) + 1
+    return t
 
 with open('scalers.pickle', 'rb') as f_scaler:
     scalers = pickle.load(f_scaler)
 
 def predict(dataset, out_f):
-    eval_dataloader = DataLoader(dataset, batch_size=1)
+    eval_dataloader = DataLoader(dataset, batch_size=50)
     outputs = []
 
     progress_bar = tqdm(range(len(eval_dataloader)))
@@ -35,7 +41,7 @@ def predict(dataset, out_f):
 
         for c in set(batch.keys()) - {'input_ids', 'attention_mask', 'labels'}:
             del batch[c]
-        outputs.extend(model(**batch).logits.tolist())
+        outputs.extend(soft_clip(model(**batch).logits).tolist())
         progress_bar.update(1)
     outputs_transformed = scalers['year'].inverse_transform(outputs)
 

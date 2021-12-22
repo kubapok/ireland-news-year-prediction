@@ -8,7 +8,7 @@ import numpy as np
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 def tokenize_function(examples):
-    t = tokenizer(examples["text"], padding="max_length", truncation=True, max_length=512)
+    t = tokenizer(examples["text"], padding="max_length", truncation=True, max_length=40)
     return t
 
 def get_dataset_dict(dataset):
@@ -39,7 +39,7 @@ eval_dataset_small = eval_dataset_full.shuffle(seed=42).select(range(2000))
 test_dataset_A = Dataset.from_dict(get_dataset_dict('test-A_huggingface_format.csv')).map(tokenize_function, batched=True)
 
 if TEST:
-    train_dataset = train_dataset.select(range(500))
+    train_dataset = train_dataset.select(range(25))
     eval_dataset_full = eval_dataset_full.select(range(400))
     eval_dataset_small = eval_dataset_small.select(range(50))
     test_dataset_A = test_dataset_A.select(range(200))
