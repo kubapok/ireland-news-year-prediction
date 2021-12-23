@@ -10,7 +10,7 @@ with open('eval_dataset_full.pickle','rb') as f_p:
 with open('test_dataset_A.pickle','rb') as f_p:
     test_dataset = pickle.load(f_p)
 
-device = 'cpu'
+device = 'cuda'
 model = AutoModelForSequenceClassification.from_pretrained('./roberta_year_prediction/epoch_best')
 model.eval()
 model.to(device)
